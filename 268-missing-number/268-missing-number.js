@@ -11,18 +11,16 @@
 
 var missingNumber = function(nums) {
     let length = nums.length + 1;
-    let arrayNums = [];
+    let numSet = new Set();
+    let numArray = [];
     
     for (let i = 0; i < length; i++) {
-        arrayNums.push(i);
+        numArray.push(i);
     }
-    
     for (let j = 0; j < nums.length; j++) {
-        let index = arrayNums.indexOf(nums[j]);
-        if (index > -1) {
-            arrayNums.splice(index, 1);
-        }
+        numSet.add(nums[j]);
     }
-    
-    return arrayNums[0];
+    for (let x = 0; x < numArray.length; x++) {
+        if (!numSet.has(numArray[x])) return numArray[x];
+    }
 };
