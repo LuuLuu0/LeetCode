@@ -3,22 +3,22 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
-    // iterate through the string 
-    // have a current counter when there is a start of a new substring
-    // keep track of the max length of the biggest substring
-    // keep a map of the non-duplicate values
-    
-    // "abcabcbb"
-    
-    let seenMap = new Map();
-    let currentCount = 0;
-    let maxCount = 0;
-    
-    for (let i = 0; i < s.length; i++) {
-        if (seenMap.has(s[i])) currentCount = Math.max(seenMap.get(s[i]) + 1, currentCount);
-        seenMap.set(s[i], i);
-        maxCount = Math.max(i - currentCount + 1, maxCount);
+  let charMap = {};
+  let windowStart = 0;
+  let maxLength = 0;
+
+  for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+    const currLetter = s[windowEnd];
+    if (!(currLetter in charMap)) charMap[currLetter] = 0;
+    charMap[currLetter] += 1;
+
+    while (charMap[currLetter] >= 2) {
+      const prevLetter = s[windowStart];
+      charMap[prevLetter] -= 1;
+      windowStart += 1;
     }
-    
-    return maxCount;
+    maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+  }
+
+  return maxLength;
 };
