@@ -24,5 +24,5 @@ var characterReplacement = function(s, k) {
         }
         maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
     }
-    return maxLength;
+    return maxLength
 };
