@@ -24,3 +24,5 @@ var minSubArrayLen = function(target, nums) {
     
     return minLength;
 };
+
+// this is a space complexity of O(1) and a time complexity of O(N + M)
