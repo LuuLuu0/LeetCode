@@ -10,17 +10,20 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-
-
 var isValidBST = function(root) {
-    return depthSearch(root, -Infinity, Infinity);
+    const sortedArray = treeInorderTraversal(root);
+    let temp = sortedArray[0];
+    for (let i = 1; i < sortedArray.length; i++) {
+        if (sortedArray[i] <= temp) return false;
+        temp = sortedArray[i];
+    }
+    return true;
 };
 
-const depthSearch = (root, minBound, maxBound) => {
-    if (root === null) return true;
-    if (root.val <= minBound || root.val >= maxBound) {
-        return false
-    }
-    return depthSearch(root.left, minBound, root.val) && depthSearch(root.right, root.val, maxBound);
+const treeInorderTraversal = (root) => {
+    if (root === null) return [];
+    const leftPath = treeInorderTraversal(root.left);
+    const rightPath = treeInorderTraversal(root.right);
+    
+    return [...leftPath, root.val, ...rightPath];
 }
-
