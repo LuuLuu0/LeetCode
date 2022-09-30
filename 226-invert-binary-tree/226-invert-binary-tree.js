@@ -12,13 +12,14 @@
  */
 var invertTree = function(root) {
     traverseTree(root);
-    function traverseTree(root) {
-        if (root === null) return;
-        let temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-        traverseTree(root.left);
-        traverseTree(root.right);
-    }
     return root;
 };
+
+const traverseTree = (root) => {
+    if (root === null) return null;
+    let temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    traverseTree(root.left);
+    traverseTree(root.right);
+}
