@@ -11,15 +11,11 @@
  * @return {TreeNode}
  */
 var invertTree = function(root) {
-    traverseTree(root);
+    if (root === null) return null;
+    const leftPath = invertTree(root.left);
+    const rightPath = invertTree(root.right);
+    root.left = rightPath;
+    root.right = leftPath;
     return root;
 };
 
-const traverseTree = (root) => {
-    if (root === null) return null;
-    let temp = root.left;
-    root.left = root.right;
-    root.right = temp;
-    traverseTree(root.left);
-    traverseTree(root.right);
-}
