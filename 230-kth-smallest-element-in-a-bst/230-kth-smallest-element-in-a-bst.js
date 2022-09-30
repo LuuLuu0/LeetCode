@@ -13,12 +13,8 @@
  */
 var kthSmallest = function(root, k) {
     const inOrderArray = traverseTree(root);
-    
-    for (let i = 0; i < inOrderArray.length; i++) {
-        if (i === k - 1) {
-            return inOrderArray[i];
-        }
-    }
+    return inOrderArray[k - 1];
+
 };
 
 const traverseTree = (root) => {
@@ -27,3 +23,6 @@ const traverseTree = (root) => {
     const rightPath = traverseTree(root.right);
     return [...leftPath, root.val, ...rightPath];
 }
+
+// maybe can do it iteratively as well?
+
