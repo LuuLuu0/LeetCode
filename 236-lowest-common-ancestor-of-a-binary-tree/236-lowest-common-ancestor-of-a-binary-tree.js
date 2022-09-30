@@ -13,7 +13,9 @@
  */
 var lowestCommonAncestor = function(root, p, q) {
     if (root === null || root === p || root === q) return root;
-    const leftPath = lowestCommonAncestor (root.left, p, q);
+    const leftPath = lowestCommonAncestor(root.left, p, q);
     const rightPath = lowestCommonAncestor(root.right, p, q);
-    return (leftPath !== null && rightPath !== null) ? root : (leftPath !== null) ? leftPath : rightPath;
+    if (!leftPath) return rightPath;
+    if (!rightPath) return leftPath;
+    return root;
 };
