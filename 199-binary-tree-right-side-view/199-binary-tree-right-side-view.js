@@ -10,28 +10,17 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
+
 var rightSideView = function(root) {
-    let result = [];
-    if (root === null) {
-        return result;
-    }
-    let queue = [root];
+    if (!root) return [];
+    let res = [];
+    pre(root, 0);
+    return res;
     
-    while (queue.length > 0) {
-        let queueLen = queue.length;
-        
-        for (let i = 0; i < queueLen; i++) {
-            let currNode = queue.shift();
-            if (i === queueLen - 1) {
-                result.push(currNode.val);
-            }
-            if (currNode.left !== null) {
-                queue.push(currNode.left);
-            }
-            if (currNode.right !== null) {
-                queue.push(currNode.right);
-            }
-        }
+    function pre(node, h) {
+        if (!node) return;
+        res[h] = node.val;
+        pre(node.left, h+1);
+        pre(node.right, h+1);
     }
-    return result;
 };
