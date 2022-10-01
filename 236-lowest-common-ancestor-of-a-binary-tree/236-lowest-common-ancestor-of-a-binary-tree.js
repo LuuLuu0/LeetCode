@@ -12,6 +12,7 @@
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
+    // if the root is null
     if (root === null) return null;
     if (root === p || root === q) return root;
     
