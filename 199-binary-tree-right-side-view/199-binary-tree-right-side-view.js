@@ -12,15 +12,15 @@
  */
 
 var rightSideView = function(root) {
-    if (!root) return [];
-    let res = [];
-    pre(root, 0);
-    return res;
+    let rightSideNodes = [];
+    if (!root) return rightSideNodes;
+    traverseDFS(root, 0);
+    return rightSideNodes;
     
-    function pre(node, h) {
+    function traverseDFS(node, level) {
         if (!node) return;
-        res[h] = node.val;
-        pre(node.left, h+1);
-        pre(node.right, h+1);
+        rightSideNodes[level] = node.val;
+        traverseDFS(node.left, level+1);
+        traverseDFS(node.right, level+1);
     }
 };
