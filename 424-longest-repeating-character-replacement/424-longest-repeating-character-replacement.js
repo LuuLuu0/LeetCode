@@ -11,12 +11,9 @@ var characterReplacement = function(s, k) {
     
     for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
         const currLetter = s[windowEnd];
-        
         if (!(charMap[currLetter])) charMap[currLetter] = 0;
         charMap[currLetter] += 1;
-        
         mostRepeatedCharCount = Math.max(mostRepeatedCharCount, charMap[currLetter]);
-        
         if (windowEnd - windowStart + 1 - mostRepeatedCharCount > k) {
             const prevLetter = s[windowStart];
             charMap[prevLetter] -= 1;
