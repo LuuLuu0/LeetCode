@@ -3,18 +3,16 @@
  * @return {number}
  */
 var maxProfit = function(prices) {
-    let currentPrice = Infinity;
-    let profit = 0;
-    
-    for (var i = 0; i < prices.length; i++) {
-        if (prices[i] < currentPrice) {
-            currentPrice = prices[i]
-        }
-        
-        if (prices[i] - currentPrice > profit) {
-            profit = prices[i] - currentPrice;
+    let windowStart = 0;
+    let maxProfit = 0;
+    for (let windowEnd = 1; windowEnd < prices.length; windowEnd++) {
+        if (prices[windowEnd] <= prices[windowStart]) {
+            windowStart = windowEnd;
+        } else {
+            let currentProfit = prices[windowEnd] - prices[windowStart];
+            maxProfit = Math.max(currentProfit, maxProfit);   
         }
     }
-    
-    return profit
+    console.log(maxProfit)
+    return maxProfit
 };
