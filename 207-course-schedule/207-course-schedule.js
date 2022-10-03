@@ -3,40 +3,51 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
+// first we want to create a graph of prereqs as well as an indegree map of the courses
+// we then want to create a queue to check the prereqs
+// then we check if the indegrees are 0
 
-// first we need to build an adjacency list with the prequisites
-// then we need create a set to keep track of we've visited or not
-// we need to keep track of the length
-// 
 var canFinish = function(numCourses, prerequisites) {
-    const graph = buildGraph(prerequisites, numCourses);
+  const graph = new Map();
+  const indegree = new Map();
+
+  for (const [course, prereq] of prerequisites){
+    if (graph.has(prereq)){
+      graph.get(prereq).push(course) 
+    }
+    else{
+      graph.set(prereq, [course])
+    }
+    if(indegree.has(course)){
+      indegree.set(course, indegree.get(course) + 1)
+    }
+    else{
+      indegree.set(course, 1)
+    }
+  }
+
+    const queue = [];
+    let visitedCount = 0;
     for (let i = 0; i < numCourses; i++) {
-        if (!traverseDFS(i, graph, visitedSet = new Set())) return false
+        console.log(indegree.has(i))
+        if (!indegree.has(i)) queue.push(i);
+    }
+    console.log(queue)
+    while(queue.length > 0) {
+        const currNode = queue.shift();
+        visitedCount++;
+        if (graph.has(currNode)) {
+            for (const neighbor of graph.get(currNode)) {
+                indegree.set(neighbor, indegree.get(neighbor) - 1);
+                if (indegree.get(neighbor) === 0) {
+                    queue.push(neighbor);
+                }
+            }
+        }
     }
 
-    return true;
+    if (visitedCount === numCourses) {
+        return true;
+    }
+    return false;
 };
-const traverseDFS = (node, graph, visitedSet) => {
-    if (graph[node].length === 0) return true;
-    if (visitedSet.has(node)) return false;
-    
-    visitedSet.add(node);
-    
-    for (let neighbor of graph[node]) {
-        if (!traverseDFS(neighbor, graph, visitedSet)) return false;
-    }
-    graph[node] = [];
-    return true;
-}
-
-const buildGraph = (prereqs, numCourses) => {
-    const graph = {};
-    for (let i = 0; i < numCourses; i++) {
-        graph[i] = [];
-    }
-    
-    for (let [nodeA, nodeB] of prereqs) {
-        graph[nodeA].push(nodeB);
-    }
-    return graph
-}
