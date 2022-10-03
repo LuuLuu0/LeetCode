@@ -25,11 +25,10 @@ var canFinish = function(numCourses, prerequisites) {
       indegree.set(course, 1)
     }
   }
-
+    console.log(graph)
     const queue = [];
     let visitedCount = 0;
     for (let i = 0; i < numCourses; i++) {
-        console.log(indegree.has(i))
         if (!indegree.has(i)) queue.push(i);
     }
     console.log(queue)
