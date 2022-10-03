@@ -12,8 +12,6 @@ var findJudge = function(n, trust) {
         outdegree.set(personA, outdegree.get(personA) + 1 || 1);
     }
 
-    console.log(indegree);
-    console.log(outdegree)
     for (let i = 1; i <= n; i++) {
         if (indegree.get(i) === n - 1 && !outdegree.has(i)) {
             return i
