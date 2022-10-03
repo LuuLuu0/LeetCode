@@ -10,16 +10,16 @@
 // 
 var canFinish = function(numCourses, prerequisites) {
     const graph = buildGraph(prerequisites, numCourses); 
-    const visitedSet = new Set();
 
     for (let i = 0; i < numCourses; i++) {
-        if (traverseDFS(i, graph, visitedSet) === false) return false
+        if (traverseDFS(i, graph, visitedSet = new Set()) === false) return false
     }
+    console.log(visitedSet)
     return true;
 };
 
 const traverseDFS = (node, graph, visitedSet) => {
-    console.log(graph[node].length)
+
     if (graph[node].length === 0) return true;
     if (visitedSet.has(node)) return false;
     
@@ -28,8 +28,6 @@ const traverseDFS = (node, graph, visitedSet) => {
     for (let neighbor of graph[node]) {
         if (traverseDFS(neighbor, graph, visitedSet) === false) return false;
     }
-    
-    visitedSet.delete(node);
     graph[node] = [];
     
     return true;
