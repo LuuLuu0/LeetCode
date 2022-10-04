@@ -5,7 +5,6 @@
 var KthLargest = function(k, nums) {
     this.index = k;
     this.numArray = nums;
-    console.log(this.numArray)
 };
 
 /** 
