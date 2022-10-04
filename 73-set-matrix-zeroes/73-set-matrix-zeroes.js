@@ -17,20 +17,11 @@ var setZeroes = function(matrix) {
     
     while (queue.length > 0) {
         const [row, col] = queue.shift();
-        traverseDFS(row, col, matrix, 'up');
-        traverseDFS(row, col, matrix, 'left');
-        traverseDFS(row, col, matrix, 'down');
-        traverseDFS(row, col, matrix, 'right');
+        for (let currCol = 0; currCol < matrix[0].length; currCol++) {
+            matrix[row][currCol] = 0;
+        } 
+        for (let currRow = 0; currRow < matrix.length; currRow++) {
+            matrix[currRow][col] = 0;
+        }
     }
 };
-
-const traverseDFS = (row, col, matrix, direction) => {
-    const rowInbound = 0 <= row && row < matrix.length;
-    const colInbound = 0 <= col && col < matrix[0].length;
-    if (!rowInbound || !colInbound) return;
-    matrix[row][col] = 0;
-    if (direction === 'up') traverseDFS(row + 1, col, matrix, 'up');
-    else if (direction === 'left')  traverseDFS(row, col - 1, matrix, 'left');
-    else if (direction === 'right')  traverseDFS(row, col + 1, matrix, 'right');
-    else if (direction === 'down')  traverseDFS(row - 1, col, matrix, 'down');
-}
