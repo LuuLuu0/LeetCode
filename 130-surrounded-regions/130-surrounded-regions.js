@@ -4,41 +4,54 @@
  */
 var solve = function(board) {
     if (!board.length) return [];
-    
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[0].length; j++) {
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[0].length; col++) {
             // Only dfs if an 'O' and on the edge
-            if (board[i][j] === 'O' && 
-            (i === 0 || i === board.length - 1 || j === 0 || j === board[0].length - 1)) {
-                dfs(i, j);
+            if (board[row][col] === 'O' && 
+            (row === 0 || row=== board.length - 1 || col === 0 || col === board[0].length - 1)) {
+                DFSTraversal(row, col, board);
             }
         }
     }
-    
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[0].length; j++) {
-            if (board[i][j] === 'XO') {
-                board[i][j] = 'O';
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[0].length; col++) {
+            if (board[row][col] === 'XO') {
+                board[row][col] = 'O';
             } else {
-                board[i][j] = 'X';
+                board[row][col] = 'X';
             }
         }
     }
     
     return board;
-    
-    function dfs(r, c) {
-        if (r < 0 || r >= board.length 
-            || c < 0 || c >= board[0].length 
-            || board[r][c] === 'X' || board[r][c] === 'XO') {
+
+    function dfs(row, col) {
+        if (row< 0 || row >= board.length 
+            || col < 0 || col >= board[0].length 
+            || board[row][col] === 'X' || board[row][col] === 'XO') {
             return;
         }
         
-        board[r][c] = 'XO';
+        board[row][c] = 'XO';
         
-        dfs(r + 1, c);
-        dfs(r - 1, c);
-        dfs(r, c - 1);
-        dfs(r, c + 1);
+        dfs(row+ 1, col);
+        dfs(row- 1, col);
+        dfs(row, col - 1);
+        dfs(row, col + 1);
     }
 };
+
+const DFSTraversal = (row, col, board) => {
+    if (row< 0 || row >= board.length 
+        || col < 0 || col >= board[0].length 
+        || board[row][col] === 'X' || board[row][col] === 'XO') {
+        return;
+    }
+        
+    board[row][col] = 'XO';
+        
+    DFSTraversal(row+ 1, col, board);
+    DFSTraversal(row- 1, col, board);
+    DFSTraversal(row, col - 1, board);
+    DFSTraversal(row, col + 1, board);
+}
