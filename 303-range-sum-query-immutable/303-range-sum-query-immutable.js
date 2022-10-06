@@ -16,7 +16,11 @@ var NumArray = function(nums) {
  * @return {number}
  */
 NumArray.prototype.sumRange = function(left, right) {
-    return this.sums[right] - (left > 0 ? this.sums[left - 1] : 0);
+    if (left === 0) {
+        return this.sums[right];
+    } else {
+        return this.sums[right] - this.sums[left - 1];
+    }
 };
 
 /** 
