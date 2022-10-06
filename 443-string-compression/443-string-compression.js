@@ -3,28 +3,19 @@
  * @return {number}
  */
 var compress = function(chars) {
-    let windowStart = 0
-    let windowEnd = 0
-    let compressString = '';
-    if (chars.length)
-    while (windowStart < chars.length) {
-        if (chars[windowStart] === chars[windowEnd]){
-            windowEnd += 1;
-        }  else {
-            if (windowEnd - windowStart === 1) {
-                compressString += chars[windowStart];
-                windowStart = windowEnd;
-            } else {
-                compressString += chars[windowStart];
-                compressString += (windowEnd - windowStart);
-                windowStart = windowEnd;   
+    var count = 1;
+    for (var i = 1; i <= chars.length; i++) {
+        if (chars[i] == chars[i - 1]) {
+            count++;
+        } else {
+            if (count > 1) {
+                var countArr = (count).toString().split(''); //transform number
+                var deletedElem = chars.splice(i - count + 1, count - 1, ...countArr); //update array
+                i = i - deletedElem.length + countArr.length; //update index
             }
+            count = 1;
         }
     }
-    while (chars.length > compressString.length) {
-        chars.pop();
-    }
-    for (let i = 0; i < compressString.length; i++) {
-        chars[i] = compressString[i];
-    }
+
+    return chars.length;
 };
