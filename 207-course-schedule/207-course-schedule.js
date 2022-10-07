@@ -3,10 +3,13 @@
  * @param {number[][]} prerequisites
  * @return {boolean}
  */
-// first we want to create a graph of prereqs as well as an indegree map of the courses
-// we then want to create a queue to check the prereqs
-// then we check if the indegrees are 0
-
+// We have a number of courses and we have the prereqs
+// If there is a cycle within the graph, then there is no way to complete
+// all the courses, so in order to find out if there is a cycle. 
+// We can use an indegree map/topological sort
+// create an indegree map, and a map of all the preqreqs and courses
+// then we want to use a BFS queue and add the courses that are completed
+// then we increment the count and then compare to the numCourses
 var canFinish = function(numCourses, prerequisites) {
   const graph = new Map();
   const indegree = new Map();
