@@ -11,17 +11,13 @@
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-    // BASE CASE
-    if (checkSymmetry(root.left, root.right) === false) {
-        return false;
-    }
-    return true;
+    return checkSymmetry(root.left, root.right)
 };
 
 const checkSymmetry = (leftNode, rightNode) => {
     if (leftNode === null && rightNode === null) return true;
     if (leftNode === null || rightNode === null) return false;
     if (leftNode.val !== rightNode.val) return false;
-    
-    return checkSymmetry(leftNode.left, rightNode.right) && checkSymmetry(leftNode.right, rightNode.left);
+    return checkSymmetry(leftNode.left, rightNode.right) 
+    && checkSymmetry(leftNode.right, rightNode.left);
 }
