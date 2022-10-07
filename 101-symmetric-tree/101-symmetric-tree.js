@@ -11,20 +11,17 @@
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-    let queue = [[root.left, root.right]];
-    
-    while (queue.length > 0) {
-        const [leftNode, rightNode] = queue.shift();
-        if (leftNode === null && rightNode === null) return true;
-        if (leftNode === null || rightNode === null) return false;
-        if (leftNode.val !== rightNode.val) return false;
-        
-        if (leftNode.left || rightNode.right) {
-            queue.push([leftNode.left, rightNode.right]);
-        }
-        if (leftNode.right || rightNode.left) {
-            queue.push([leftNode.right, rightNode.left]);
-        }
+    // BASE CASE
+    if (checkSymmetry(root.left, root.right) === false) {
+        return false;
     }
     return true;
 };
+
+const checkSymmetry = (leftNode, rightNode) => {
+    if (leftNode === null && rightNode === null) return true;
+    if (leftNode === null || rightNode === null) return false;
+    if (leftNode.val !== rightNode.val) return false;
+    
+    return checkSymmetry(leftNode.left, rightNode.right) && checkSymmetry(leftNode.right, rightNode.left);
+}
