@@ -3,22 +3,22 @@
  * @return {number[]}
  */
 var findRedundantConnection = function(edges) {
-    let map = {};
+    let graph = {};
     for (let [nodeA, nodeB] of edges){
         if (dfs(nodeA, nodeB, new Set())) return [nodeA, nodeB]
         
-        if (!(nodeA in map)) map[nodeA] = new Set();
-        if (!(nodeB in map)) map[nodeB] = new Set();
+        if (!(nodeA in graph)) graph[nodeA] = new Set();
+        if (!(nodeB in graph)) graph[nodeB] = new Set();
         
-        map[nodeA].add(nodeB);
-        map[nodeB].add(nodeA);
+        graph[nodeA].add(nodeB);
+        graph[nodeB].add(nodeA);
     }
     
     function dfs(nodeA, nodeB, visited) {
         visited.add(nodeA);
-        if (nodeA in map) {
-            if (map[nodeA].has(nodeB)) return true;
-            for (let neighbor of map[nodeA]) {
+        if (nodeA in graph) {
+            if (graph[nodeA].has(nodeB)) return true;
+            for (let neighbor of graph[nodeA]) {
                 if (!visited.has(neighbor)) {
                     visited.add(neighbor);
                     if (dfs(neighbor, nodeB, visited)) return true;
