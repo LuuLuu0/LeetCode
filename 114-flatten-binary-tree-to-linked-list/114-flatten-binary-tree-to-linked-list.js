@@ -10,21 +10,27 @@
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var flatten = function(root) {
-    let last = null;
-    preOrderTraversal(root);
-    return root;
+const flatten = (root) => {
+    const list = [];
+    helper(root, list);
     
-    function preOrderTraversal(node) {
-        if (node) {
-            if (last) {
-                last.left = null;
-                last.right = node;
-            }
-            last = node;
-            const right = node.right;
-            preOrderTraversal(node.left);
-            preOrderTraversal(right);
-        }
+    if(list.length === 0 ) return;
+    
+    for(let i = 0; i < list.length - 1; i++) {
+        const node = list[i];
+        node.left = null;
+        node.right = list[i + 1];
     }
+    
+    const lastNode = list[list.length -1];
+    lastNode.left = null;
+    lastNode.right = null;
 };
+
+const helper = (node, list) => {
+    if(!node) return;
+    
+    list.push(node);
+    helper(node.left, list);
+    helper(node.right, list);
+}
